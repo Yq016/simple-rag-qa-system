@@ -1,0 +1,38 @@
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
+
+# 模型路径（你下载的模型文件夹）
+model_path = "./qwen3-0.6b"
+
+print("正在加载模型...")
+
+tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_path,
+    torch_dtype=torch.float16,
+    device_map="auto",
+    trust_remote_code=True
+)
+
+print("模型加载完成！可以开始聊天了")
+
+while True:
+    text = input("\n你: ")
+
+    if text.lower() in ["exit", "quit"]:
+        break
+
+    inputs = tokenizer(text, return_tensors="pt").to(model.device)
+
+    outputs = model.generate(
+        **inputs,
+        max_new_tokens=200,
+        do_sample=True,
+        temperature=0.7,
+        top_p=0.9
+    )
+
+    answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    print("\nAI:", answer)

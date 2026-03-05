@@ -1,0 +1,15 @@
+RAG stands for Retrieval Augmented Generation.
+It combines information retrieval with large language models.
+
+LangChain is a framework used to build LLM applications.
+
+FAISS is a vector database developed by Facebook AI
+for similarity search.
+
+Large Language Models (LLMs) are deep learning models
+trained on massive text data.
+
+Examples include GPT, LLaMA, and Qwen models.
+
+Embeddings convert text into vectors so that
+semantic similarity search can be performed.
